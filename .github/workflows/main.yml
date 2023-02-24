@@ -18,7 +18,7 @@ jobs:
           cache: maven
       - run: mvn -V --batch-mode --update-snapshots verify
   release:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/3.x'
     needs: build_and_test
     runs-on: ubuntu-latest
     steps:
