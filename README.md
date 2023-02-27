@@ -1,12 +1,10 @@
 # Ableron Spring Boot
 [![Build Status](https://github.com/ableron/ableron-spring-boot/actions/workflows/main.yml/badge.svg)](https://github.com/ableron/ableron-spring-boot/actions/workflows/main.yml)
-[![License](https://img.shields.io/github/license/ableron/ableron-spring-boot)](https://github.com/ableron/ableron-spring-boot/blob/main/LICENSE)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.ableron/ableron-spring-boot/badge.svg)](https://mvnrepository.com/artifact/io.github.ableron/ableron-spring-boot)
-[![Java Version](https://img.shields.io/badge/Java-11+-4EB1BA.svg)](https://docs.oracle.com/en/java/javase/11/)
 
 **Spring Boot Support for Ableron Server Side UI Composition**
-1. Spring Boot 3.x project，please use ableron-spring-boot-starter 3.x
-1. Spring Boot 2.x project，please use ableron-spring-boot-starter 2.x
+1. Spring Boot 3.x project: Please use ableron-spring-boot-starter 3.x (Java 17+)
+1. Spring Boot 2.x project: Please use ableron-spring-boot-starter 2.x (Java 11+)
 
 ## Installation
 Maven:
@@ -19,9 +17,7 @@ Maven:
 ```
 Gradle:
 ```groovy
-dependencies {
-  implementation 'io.github.ableron:ableron-spring-boot-starter:2.0.0'
-}
+implementation 'io.github.ableron:ableron-spring-boot-starter:2.0.0'
 ```
 
 ## Usage
@@ -63,6 +59,7 @@ Use fragments in response body
    3. Let GitHub generate the release notes automatically
    4. Publish release
 7. Set artifact version in `main` branch to next `-SNAPSHOT` version via new commit
+8. Apply changes to `2.x` branch as well, if sensible
 
 ## Contributing
 Contributions are greatly appreciated. To contribute you can either simply open an issue or fork the repository and create a pull request:
