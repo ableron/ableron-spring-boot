@@ -14,13 +14,13 @@ Maven:
 <dependency>
   <groupId>io.github.ableron</groupId>
   <artifactId>ableron-spring-boot-starter</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 Gradle:
 ```groovy
 dependencies {
-  implementation 'io.github.ableron:ableron-spring-boot-starter:1.0.0'
+  implementation 'io.github.ableron:ableron-spring-boot-starter:2.0.0'
 }
 ```
 
