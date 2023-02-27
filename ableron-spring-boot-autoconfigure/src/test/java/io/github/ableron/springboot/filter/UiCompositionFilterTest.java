@@ -41,7 +41,7 @@ public class UiCompositionFilterTest {
   @Test
   public void shouldNotApplyUiCompositionIfDisabled() throws ServletException, IOException {
     // given
-    Ableron ableron = new Ableron(AbleronConfig.builder().enabled(false).build());
+    Ableron ableron = new Ableron(AbleronConfig.builder().build());
     UiCompositionFilter uiCompositionFilter = new UiCompositionFilter(ableron);
     MockHttpServletRequest request = new MockHttpServletRequest();
     MockHttpServletResponse response = new MockHttpServletResponse();
