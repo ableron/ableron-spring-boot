@@ -10,6 +10,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.servlet.Filter;
 
 @AutoConfiguration
 @ConditionalOnClass(Ableron.class)
@@ -40,9 +43,14 @@ public class AbleronAutoConfiguration {
     return new Ableron(ableronConfig);
   }
 
-  @Bean
-  @ConditionalOnMissingBean
-  public UiCompositionFilter uiCompositionFilter(Ableron ableron) {
-    return new UiCompositionFilter(ableron);
+  @Configuration(proxyBeanMethods = false)
+  @ConditionalOnClass(Filter.class)
+  public static class SpringWebMvcConfiguration {
+
+    @Bean
+    @ConditionalOnMissingBean
+    public UiCompositionFilter uiCompositionFilter(Ableron ableron) {
+      return new UiCompositionFilter(ableron);
+    }
   }
 }
