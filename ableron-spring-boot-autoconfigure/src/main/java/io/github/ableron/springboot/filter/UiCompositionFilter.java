@@ -49,7 +49,12 @@ public class UiCompositionFilter extends OncePerRequestFilter {
       TransclusionResult transclusionResult = ableron.resolveIncludes(originalResponseBody);
       String processedResponseBody = transclusionResult.getContent();
       responseWrapper.resetBuffer();
-      responseWrapper.getOutputStream().write(processedResponseBody.getBytes(encoding));
+
+      if (processedResponseBody.isEmpty()) {
+        responseWrapper.getResponse().setContentLength(0);
+      } else {
+        responseWrapper.getOutputStream().write(processedResponseBody.getBytes(encoding));
+      }
     }
 
     responseWrapper.copyBodyToResponse();
