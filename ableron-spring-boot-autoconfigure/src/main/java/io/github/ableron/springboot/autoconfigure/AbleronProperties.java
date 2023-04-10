@@ -3,6 +3,7 @@ package io.github.ableron.springboot.autoconfigure;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.time.Duration;
+import java.util.List;
 
 @ConfigurationProperties(prefix = "ableron")
 public class AbleronProperties {
@@ -25,6 +26,23 @@ public class AbleronProperties {
    * Defaults to 5 minutes.
    */
   private long fragmentDefaultCacheDurationMillis = Duration.ofMinutes(5).toMillis();
+
+  /**
+   * Request headers that are passed to fragment requests if present.
+   */
+  private List<String> fragmentRequestHeadersToPass = List.of(
+    "Accept-Language",
+    "Correlation-ID",
+    "Forwarded",
+    "Referer",
+    "User-Agent",
+    "X-Correlation-ID",
+    "X-Forwarded-For",
+    "X-Forwarded-Proto",
+    "X-Forwarded-Host",
+    "X-Real-IP",
+    "X-Request-ID"
+  );
 
   /**
    * Maximum size in bytes the fragment cache may have.
@@ -54,6 +72,14 @@ public class AbleronProperties {
 
   public void setFragmentDefaultCacheDurationMillis(long fragmentDefaultCacheDurationMillis) {
     this.fragmentDefaultCacheDurationMillis = fragmentDefaultCacheDurationMillis;
+  }
+
+  public List<String> getFragmentRequestHeadersToPass() {
+    return fragmentRequestHeadersToPass;
+  }
+
+  public void setFragmentRequestHeadersToPass(List<String> fragmentRequestHeadersToPass) {
+    this.fragmentRequestHeadersToPass = fragmentRequestHeadersToPass;
   }
 
   public long getCacheMaxSizeInBytes() {

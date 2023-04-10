@@ -30,6 +30,18 @@ Use includes in response body
 * `ableron.enabled`: Whether UI composition is enabled. Defaults to `true`
 * `ableron.fragment-request-timeout-millis`: Timeout for requesting fragments. Defaults to `3 seconds`
 * `ableron.fragment-default-cache-duration-millis`: Duration to cache fragments in case neither `Cache-Control` nor `Expires` header is present. Defaults to `5 minutes`
+* `ableron.fragment-request-headers-to-pass`: Request headers that are passed to fragment requests if present. Defaults to:
+  * `Accept-Language`
+  * `Correlation-ID`
+  * `Forwarded`
+  * `Referer`
+  * `User-Agent`
+  * `X-Correlation-ID`
+  * `X-Forwarded-For`
+  * `X-Forwarded-Proto`
+  * `X-Forwarded-Host`
+  * `X-Real-IP`
+  * `X-Request-ID`
 * `ableron.cache-max-size-in-bytes`: Maximum size in bytes the fragment cache may have. Defaults to `10 MB`
 
 ## Library Development
