@@ -7,6 +7,13 @@
 1. Spring Boot 2.x project: Please use ableron-spring-boot-starter 2.x (Java 11+, spring-webmvc only)
 
 ## Installation
+Add dependency [io.github.ableron:ableron-spring-boot-starter](https://mvnrepository.com/artifact/io.github.ableron/ableron-spring-boot-starter) to your project.
+
+Gradle:
+```groovy
+implementation 'io.github.ableron:ableron-spring-boot-starter:3.0.3'
+```
+
 Maven:
 ```xml
 <dependency>
@@ -14,10 +21,6 @@ Maven:
   <artifactId>ableron-spring-boot-starter</artifactId>
   <version>3.0.3</version>
 </dependency>
-```
-Gradle:
-```groovy
-implementation 'io.github.ableron:ableron-spring-boot-starter:3.0.3'
 ```
 
 ## Usage
