@@ -1,6 +1,7 @@
 package io.github.ableron.springboot.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.util.unit.DataSize;
 
 import java.time.Duration;
 import java.util.List;
@@ -48,7 +49,7 @@ public class AbleronProperties {
    * Maximum size in bytes the fragment cache may have.
    * Defaults to 10 MB.
    */
-  private long cacheMaxSizeInBytes = 1024 * 1024 * 10;
+  private long cacheMaxSizeInBytes = DataSize.ofMegabytes(10).toBytes();
 
   public boolean isEnabled() {
     return enabled;
