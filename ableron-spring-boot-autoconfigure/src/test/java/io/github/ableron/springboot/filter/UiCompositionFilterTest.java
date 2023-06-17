@@ -2,9 +2,14 @@ package io.github.ableron.springboot.filter;
 
 import io.github.ableron.Ableron;
 import io.github.ableron.AbleronConfig;
+import io.github.ableron.TransclusionResult;
 import io.github.ableron.springboot.autoconfigure.AbleronAutoConfiguration;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockFilterChain;
@@ -16,6 +21,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 
 @ContextConfiguration(classes = AbleronAutoConfiguration.class)
@@ -93,6 +99,31 @@ public class UiCompositionFilterTest {
     // then
     assertEquals("", response.getContentAsString());
     assertEquals(0, response.getHeaderValue(HttpHeaders.CONTENT_LENGTH));
+  }
+
+  @Test
+  public void shouldPassStatusCodeAndResponseHeadersFromPrimaryInclude() throws ServletException, IOException {
+    // given
+    var transclusionResult = new TransclusionResult();
+    transclusionResult.setContent("mocked");
+    transclusionResult.setHasPrimaryInclude(true);
+    transclusionResult.setPrimaryIncludeStatusCode(503);
+    transclusionResult.setPrimaryIncludeResponseHeaders(Map.of(HttpHeaders.CONTENT_LANGUAGE, List.of("en")));
+    var ableron = Mockito.mock(Ableron.class);
+    Mockito.when(ableron.resolveIncludes(any(), any())).thenReturn(transclusionResult);
+    var uiCompositionFilter = new UiCompositionFilter(ableron);
+    var request = new MockHttpServletRequest();
+    var response = new MockHttpServletResponse();
+    var filterChain = new MockFilterChain(mock(HttpServlet.class), uiCompositionFilter, new OutputGeneratingFilter(
+      "<ableron-include src=\"foo\" primary>fallback</ableron-include>"
+    ));
+
+    // when
+    filterChain.doFilter(request, response);
+
+    // then
+    assertEquals(503, response.getStatus());
+    assertEquals("en", response.getHeaderValue(HttpHeaders.CONTENT_LANGUAGE));
   }
 
   static class OutputGeneratingFilter implements Filter {

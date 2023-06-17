@@ -92,6 +92,19 @@ public class UiCompositionFilter extends OncePerRequestFilter {
     } else {
       responseWrapper.getOutputStream().write(processedResponseBody.getBytes(encoding));
     }
+
+    if (transclusionResult.hasPrimaryInclude()) {
+      transclusionResult.getPrimaryIncludeStatusCode().ifPresent(responseWrapper::setStatus);
+      transclusionResult.getPrimaryIncludeResponseHeaders().forEach((name, values) -> {
+        for (int i = 0; i < values.size(); i++) {
+          if (i == 0) {
+            responseWrapper.setHeader(name, values.get(i));
+          } else {
+            responseWrapper.addHeader(name, values.get(i));
+          }
+        }
+      });
+    }
   }
 
   private Map<String, List<String>> getRequestHeaders(HttpServletRequest request) {
