@@ -1,10 +1,9 @@
 package io.github.ableron.springboot.filter;
 
-import io.github.ableron.Ableron;
-import io.github.ableron.AbleronConfig;
-import io.github.ableron.TransclusionResult;
+import io.github.ableron.*;
 import io.github.ableron.springboot.autoconfigure.AbleronAutoConfiguration;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
@@ -104,11 +103,11 @@ public class UiCompositionFilterTest {
   @Test
   public void shouldPassStatusCodeAndResponseHeadersFromPrimaryInclude() throws ServletException, IOException {
     // given
-    var transclusionResult = new TransclusionResult();
-    transclusionResult.setContent("mocked");
-    transclusionResult.setHasPrimaryInclude(true);
-    transclusionResult.setPrimaryIncludeStatusCode(503);
-    transclusionResult.setPrimaryIncludeResponseHeaders(Map.of(HttpHeaders.CONTENT_LANGUAGE, List.of("en")));
+    var transclusionResult = new TransclusionResult("");
+    transclusionResult.addResolvedInclude(
+      new Include(Map.of("primary", "")),
+      new Fragment(503, "content", Instant.EPOCH, Map.of(HttpHeaders.CONTENT_LANGUAGE, List.of("en")))
+    );
     var ableron = Mockito.mock(Ableron.class);
     Mockito.when(ableron.resolveIncludes(any(), any())).thenReturn(transclusionResult);
     var uiCompositionFilter = new UiCompositionFilter(ableron);
