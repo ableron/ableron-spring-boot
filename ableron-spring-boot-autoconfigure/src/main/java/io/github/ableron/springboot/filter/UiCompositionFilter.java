@@ -100,7 +100,6 @@ public class UiCompositionFilter extends OncePerRequestFilter {
         }
       }
     });
-
     responseWrapper.setHeader(HttpHeaders.CACHE_CONTROL, transclusionResult.calculateCacheControlHeaderValue(getResponseHeaders((HttpServletResponse) responseWrapper.getResponse())));
   }
 
