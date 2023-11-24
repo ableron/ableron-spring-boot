@@ -7,12 +7,12 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.17</version>
+    <version>2.7.18</version>
   </parent>
 
   <groupId>io.github.ableron</groupId>
   <artifactId>ableron-spring-boot</artifactId>
-  <version>2.5.1-SNAPSHOT</version>
+  <version>2.6.0</version>
   <packaging>pom</packaging>
 
   <name>ableron-spring-boot</name>
@@ -83,14 +83,14 @@
 
   <properties>
     <java.version>11</java.version>
-    <ableron.version>1.6.0</ableron.version>
+    <ableron.version>1.7.0</ableron.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
     <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
     <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
-    <spring-boot.version>2.7.17</spring-boot.version>
-    <spring.version>5.3.30</spring.version>
+    <spring-boot.version>2.7.18</spring-boot.version>
+    <spring.version>5.3.31</spring.version>
   </properties>
 
   <profiles>
