@@ -15,6 +15,7 @@
    ```
 
 ## Tooling
+* See `io.github.ableron:ableron-spring-boot-starter` in [MvnRepository](https://mvnrepository.com/artifact/io.github.ableron/ableron-spring-boot-starter)
 * See Artifacts in [nexus repository manager](https://s01.oss.sonatype.org/index.html#nexus-search;gav~io.github.ableron~ableron-spring-boot*~~~)
 
 ## Perform Release
