@@ -37,6 +37,7 @@ public class AbleronAutoConfiguration {
       .cacheMaxSizeInBytes(ableronProperties.getCacheMaxSizeInBytes())
       .cacheVaryByRequestHeaders(ableronProperties.getCacheVaryByRequestHeaders())
       .statsAppendToContent(ableronProperties.isStatsAppendToContent())
+      .statsExposeFragmentUrl(ableronProperties.isStatsExposeFragmentUrl())
       .build();
   }
 

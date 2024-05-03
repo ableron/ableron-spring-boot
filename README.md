@@ -9,7 +9,7 @@
 ## Installation
 Gradle:
 ```groovy
-implementation 'io.github.ableron:ableron-spring-boot-starter:2.6.0'
+implementation 'io.github.ableron:ableron-spring-boot-starter:2.7.0'
 ```
 
 Maven:
@@ -17,7 +17,7 @@ Maven:
 <dependency>
   <groupId>io.github.ableron</groupId>
   <artifactId>ableron-spring-boot-starter</artifactId>
-  <version>2.6.0</version>
+  <version>2.7.0</version>
 </dependency>
 ```
 
@@ -93,3 +93,9 @@ Must be a subset of `ableron.fragment-request-headers-to-pass`. Common example a
 Default: `false`
 
 Whether to append UI composition stats as HTML comment to the content.
+
+#### `ableron.stats-expose-fragment-url`
+
+Default: `false`
+
+Whether to expose fragment URLs in the stats appended to the content.
