@@ -60,6 +60,11 @@ public class AbleronProperties {
    */
   private boolean statsAppendToContent = false;
 
+  /**
+   * Whether to expose fragment URLs in the stats appended to the content.
+   */
+  private boolean statsExposeFragmentUrl = false;
+
   public boolean isEnabled() {
     return enabled;
   }
@@ -114,5 +119,13 @@ public class AbleronProperties {
 
   public void setStatsAppendToContent(boolean statsAppendToContent) {
     this.statsAppendToContent = statsAppendToContent;
+  }
+
+  public boolean isStatsExposeFragmentUrl() {
+    return statsExposeFragmentUrl;
+  }
+
+  public void setStatsExposeFragmentUrl(boolean statsExposeFragmentUrl) {
+    this.statsExposeFragmentUrl = statsExposeFragmentUrl;
   }
 }
