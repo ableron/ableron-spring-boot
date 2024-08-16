@@ -48,7 +48,7 @@ public class AbleronProperties {
   /**
    * Maximum size in bytes the fragment cache may have.
    */
-  private long cacheMaxSizeInBytes = DataSize.ofMegabytes(10).toBytes();
+  private long cacheMaxSizeInBytes = DataSize.ofMegabytes(50).toBytes();
 
   /**
    * Fragment request headers which influence the requested fragment aside from its URL.
