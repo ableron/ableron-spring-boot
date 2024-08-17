@@ -24,7 +24,7 @@ public class AbleronDisabledTest {
     try {
       applicationContext.getBean(UiCompositionFilter.class);
       fail("UiCompositionFilter must not be instantiated");
-    } catch(NoSuchBeanDefinitionException e) {
+    } catch (NoSuchBeanDefinitionException e) {
       assertEquals("No qualifying bean of type 'io.github.ableron.springboot.filter.UiCompositionFilter' available", e.getMessage());
     }
   }

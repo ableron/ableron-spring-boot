@@ -17,7 +17,7 @@ public class AbleronProperties {
   /**
    * Timeout for requesting fragments.
    */
-  private long fragmentRequestTimeoutMillis = Duration.ofSeconds(3).toMillis();
+  private Duration fragmentRequestTimeout = Duration.ofSeconds(3);
 
   /**
    * Request headers that are passed to fragment requests if present.
@@ -37,6 +37,14 @@ public class AbleronProperties {
   );
 
   /**
+   * Extends `fragmentRequestHeadersToPass`. Use this property to pass all headers defined in
+   * `fragmentRequestHeadersToPass` plus the additional headers defined here. This prevents
+   * the need to duplicate `fragmentRequestHeadersToPass` if the only use case is to add
+   * additional headers instead of modifying the default ones.
+   */
+  private List<String> fragmentAdditionalRequestHeadersToPass = List.of();
+
+  /**
    * Response headers of primary fragments to pass to the page response if present.
    */
   private List<String> primaryFragmentResponseHeadersToPass = List.of(
@@ -45,25 +53,9 @@ public class AbleronProperties {
     "Refresh"
   );
 
-  /**
-   * Maximum size in bytes the fragment cache may have.
-   */
-  private long cacheMaxSizeInBytes = DataSize.ofMegabytes(50).toBytes();
+  private final Cache cache = new Cache();
 
-  /**
-   * Fragment request headers which influence the requested fragment aside from its URL.
-   */
-  private List<String> cacheVaryByRequestHeaders = List.of();
-
-  /**
-   * Whether to append UI composition stats as HTML comment to the content.
-   */
-  private boolean statsAppendToContent = false;
-
-  /**
-   * Whether to expose fragment URLs in the stats appended to the content.
-   */
-  private boolean statsExposeFragmentUrl = false;
+  private final Stats stats = new Stats();
 
   public boolean isEnabled() {
     return enabled;
@@ -73,12 +65,12 @@ public class AbleronProperties {
     this.enabled = enabled;
   }
 
-  public long getFragmentRequestTimeoutMillis() {
-    return fragmentRequestTimeoutMillis;
+  public Duration getFragmentRequestTimeout() {
+    return fragmentRequestTimeout;
   }
 
-  public void setFragmentRequestTimeoutMillis(long fragmentRequestTimeoutMillis) {
-    this.fragmentRequestTimeoutMillis = fragmentRequestTimeoutMillis;
+  public void setFragmentRequestTimeout(Duration fragmentRequestTimeout) {
+    this.fragmentRequestTimeout = fragmentRequestTimeout;
   }
 
   public List<String> getFragmentRequestHeadersToPass() {
@@ -89,6 +81,14 @@ public class AbleronProperties {
     this.fragmentRequestHeadersToPass = fragmentRequestHeadersToPass;
   }
 
+  public List<String> getFragmentAdditionalRequestHeadersToPass() {
+    return fragmentAdditionalRequestHeadersToPass;
+  }
+
+  public void setFragmentAdditionalRequestHeadersToPass(List<String> fragmentAdditionalRequestHeadersToPass) {
+    this.fragmentAdditionalRequestHeadersToPass = fragmentAdditionalRequestHeadersToPass;
+  }
+
   public List<String> getPrimaryFragmentResponseHeadersToPass() {
     return primaryFragmentResponseHeadersToPass;
   }
@@ -97,35 +97,108 @@ public class AbleronProperties {
     this.primaryFragmentResponseHeadersToPass = primaryFragmentResponseHeadersToPass;
   }
 
-  public long getCacheMaxSizeInBytes() {
-    return cacheMaxSizeInBytes;
+  public Cache getCache() {
+    return cache;
   }
 
-  public void setCacheMaxSizeInBytes(long cacheMaxSizeInBytes) {
-    this.cacheMaxSizeInBytes = cacheMaxSizeInBytes;
+  public Stats getStats() {
+    return stats;
   }
 
-  public List<String> getCacheVaryByRequestHeaders() {
-    return cacheVaryByRequestHeaders;
+  public static class Cache {
+
+    /**
+     * Maximum size in bytes, the fragment cache may have.
+     */
+    private long maxSizeInBytes = DataSize.ofMegabytes(50).toBytes();
+
+    /**
+     * Fragment request headers which influence the requested fragment aside from its URL.
+     */
+    private List<String> varyByRequestHeaders = List.of();
+
+    /**
+     * Whether to enable auto-refreshing of cached fragments, before they expire.
+     */
+    private boolean autoRefreshEnabled = false;
+
+    /**
+     * Maximum number of attempts to refresh a cached fragment.
+     */
+    private int autoRefreshMaxAttempts = 3;
+
+    /**
+     * Maximum number of consecutive refreshs of inactive cached fragments.
+     */
+    private int autoRefreshInactiveFragmentsMaxRefreshs = 2;
+
+    public long getMaxSizeInBytes() {
+      return maxSizeInBytes;
+    }
+
+    public void setMaxSizeInBytes(long maxSizeInBytes) {
+      this.maxSizeInBytes = maxSizeInBytes;
+    }
+
+    public List<String> getVaryByRequestHeaders() {
+      return varyByRequestHeaders;
+    }
+
+    public void setVaryByRequestHeaders(List<String> varyByRequestHeaders) {
+      this.varyByRequestHeaders = varyByRequestHeaders;
+    }
+
+    public boolean isAutoRefreshEnabled() {
+      return autoRefreshEnabled;
+    }
+
+    public void setAutoRefreshEnabled(boolean autoRefreshEnabled) {
+      this.autoRefreshEnabled = autoRefreshEnabled;
+    }
+
+    public int getAutoRefreshMaxAttempts() {
+      return autoRefreshMaxAttempts;
+    }
+
+    public void setAutoRefreshMaxAttempts(int autoRefreshMaxAttempts) {
+      this.autoRefreshMaxAttempts = autoRefreshMaxAttempts;
+    }
+
+    public int getAutoRefreshInactiveFragmentsMaxRefreshs() {
+      return autoRefreshInactiveFragmentsMaxRefreshs;
+    }
+
+    public void setAutoRefreshInactiveFragmentsMaxRefreshs(int autoRefreshInactiveFragmentsMaxRefreshs) {
+      this.autoRefreshInactiveFragmentsMaxRefreshs = autoRefreshInactiveFragmentsMaxRefreshs;
+    }
   }
 
-  public void setCacheVaryByRequestHeaders(List<String> cacheVaryByRequestHeaders) {
-    this.cacheVaryByRequestHeaders = cacheVaryByRequestHeaders;
-  }
+  public static class Stats {
 
-  public boolean isStatsAppendToContent() {
-    return statsAppendToContent;
-  }
+    /**
+     * Whether to append UI composition stats as HTML comment to the content.
+     */
+    private boolean appendToContent = false;
 
-  public void setStatsAppendToContent(boolean statsAppendToContent) {
-    this.statsAppendToContent = statsAppendToContent;
-  }
+    /**
+     * Whether to expose fragment URLs in the stats appended to the content.
+     */
+    private boolean exposeFragmentUrl = false;
 
-  public boolean isStatsExposeFragmentUrl() {
-    return statsExposeFragmentUrl;
-  }
+    public boolean isAppendToContent() {
+      return appendToContent;
+    }
 
-  public void setStatsExposeFragmentUrl(boolean statsExposeFragmentUrl) {
-    this.statsExposeFragmentUrl = statsExposeFragmentUrl;
+    public void setAppendToContent(boolean appendToContent) {
+      this.appendToContent = appendToContent;
+    }
+
+    public boolean isExposeFragmentUrl() {
+      return exposeFragmentUrl;
+    }
+
+    public void setExposeFragmentUrl(boolean exposeFragmentUrl) {
+      this.exposeFragmentUrl = exposeFragmentUrl;
+    }
   }
 }

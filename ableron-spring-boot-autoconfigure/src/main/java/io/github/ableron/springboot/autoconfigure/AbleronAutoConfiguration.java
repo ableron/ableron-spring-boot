@@ -3,8 +3,6 @@ package io.github.ableron.springboot.autoconfigure;
 import io.github.ableron.Ableron;
 import io.github.ableron.AbleronConfig;
 import io.github.ableron.springboot.filter.UiCompositionFilter;
-import java.time.Duration;
-
 import jakarta.servlet.Filter;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -31,13 +29,17 @@ public class AbleronAutoConfiguration {
   public AbleronConfig ableronConfig() {
     return AbleronConfig.builder()
       .enabled(ableronProperties.isEnabled())
-      .fragmentRequestTimeout(Duration.ofMillis(ableronProperties.getFragmentRequestTimeoutMillis()))
+      .fragmentRequestTimeout(ableronProperties.getFragmentRequestTimeout())
       .fragmentRequestHeadersToPass(ableronProperties.getFragmentRequestHeadersToPass())
+      .fragmentAdditionalRequestHeadersToPass(ableronProperties.getFragmentAdditionalRequestHeadersToPass())
       .primaryFragmentResponseHeadersToPass(ableronProperties.getPrimaryFragmentResponseHeadersToPass())
-      .cacheMaxSizeInBytes(ableronProperties.getCacheMaxSizeInBytes())
-      .cacheVaryByRequestHeaders(ableronProperties.getCacheVaryByRequestHeaders())
-      .statsAppendToContent(ableronProperties.isStatsAppendToContent())
-      .statsExposeFragmentUrl(ableronProperties.isStatsExposeFragmentUrl())
+      .cacheMaxSizeInBytes(ableronProperties.getCache().getMaxSizeInBytes())
+      .cacheVaryByRequestHeaders(ableronProperties.getCache().getVaryByRequestHeaders())
+      .cacheAutoRefreshEnabled(ableronProperties.getCache().isAutoRefreshEnabled())
+      .cacheAutoRefreshMaxAttempts(ableronProperties.getCache().getAutoRefreshMaxAttempts())
+      .cacheAutoRefreshInactiveFragmentsMaxRefreshs(ableronProperties.getCache().getAutoRefreshInactiveFragmentsMaxRefreshs())
+      .statsAppendToContent(ableronProperties.getStats().isAppendToContent())
+      .statsExposeFragmentUrl(ableronProperties.getStats().isExposeFragmentUrl())
       .build();
   }
 
