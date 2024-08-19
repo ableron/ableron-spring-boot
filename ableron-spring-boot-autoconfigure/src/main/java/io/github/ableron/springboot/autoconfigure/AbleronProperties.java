@@ -108,9 +108,9 @@ public class AbleronProperties {
   public static class Cache {
 
     /**
-     * Maximum size in bytes, the fragment cache may have.
+     * Maximum size, the fragment cache may have.
      */
-    private long maxSizeInBytes = DataSize.ofMegabytes(50).toBytes();
+    private DataSize maxSize = DataSize.ofMegabytes(50);
 
     /**
      * Fragment request headers which influence the requested fragment aside from its URL.
@@ -132,12 +132,12 @@ public class AbleronProperties {
      */
     private int autoRefreshInactiveFragmentsMaxRefreshs = 2;
 
-    public long getMaxSizeInBytes() {
-      return maxSizeInBytes;
+    public DataSize getMaxSize() {
+      return maxSize;
     }
 
-    public void setMaxSizeInBytes(long maxSizeInBytes) {
-      this.maxSizeInBytes = maxSizeInBytes;
+    public void setMaxSize(DataSize maxSize) {
+      this.maxSize = maxSize;
     }
 
     public List<String> getVaryByRequestHeaders() {

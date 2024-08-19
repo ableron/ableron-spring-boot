@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     "ableron.fragment-request-headers-to-pass=X-Test-Foo,X-Test-Bar,X-Test-Baz",
     "ableron.fragment-additional-request-headers-to-pass=X-Foo,X-Bar",
     "ableron.primary-fragment-response-headers-to-pass=X-Correlation-ID",
-    "ableron.cache.max-size-in-bytes=2048",
+    "ableron.cache.max-size=2MB",
     "ableron.cache.vary-by-request-headers=X-Foo,X-Bar",
     "ableron.cache.auto-refresh-enabled=true",
     "ableron.cache.auto-refresh-max-attempts=5",
@@ -47,7 +47,7 @@ public class AbleronPropertiesTest {
       "X-Bar"
     ), ableronConfig.getFragmentAdditionalRequestHeadersToPass());
     assertEquals(List.of("X-Correlation-ID"), ableronConfig.getPrimaryFragmentResponseHeadersToPass());
-    assertEquals(2048, ableronConfig.getCacheMaxSizeInBytes());
+    assertEquals(2097152, ableronConfig.getCacheMaxSizeInBytes());
     assertEquals(List.of("X-Foo", "X-Bar"), ableronConfig.getCacheVaryByRequestHeaders());
     assertTrue(ableronConfig.cacheAutoRefreshEnabled());
     assertEquals(5, ableronConfig.getCacheAutoRefreshMaxAttempts());

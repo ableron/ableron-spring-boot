@@ -84,11 +84,11 @@ List.of(
 
 Response headers of primary fragments to pass to the page response, if present.
 
-#### `ableron.cache.max-size-in-bytes`
+#### `ableron.cache.max-size`
 
-Default: `1024 * 1024 * 50` (`50 MB`)
+Default: `50MB`
 
-Maximum size in bytes the fragment cache may have.
+Maximum size, the fragment cache may have.
 
 #### `ableron.cache.vary-by-request-headers`
 

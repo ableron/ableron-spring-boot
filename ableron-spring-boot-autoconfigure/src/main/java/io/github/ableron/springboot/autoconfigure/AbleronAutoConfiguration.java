@@ -33,7 +33,7 @@ public class AbleronAutoConfiguration {
       .fragmentRequestHeadersToPass(ableronProperties.getFragmentRequestHeadersToPass())
       .fragmentAdditionalRequestHeadersToPass(ableronProperties.getFragmentAdditionalRequestHeadersToPass())
       .primaryFragmentResponseHeadersToPass(ableronProperties.getPrimaryFragmentResponseHeadersToPass())
-      .cacheMaxSizeInBytes(ableronProperties.getCache().getMaxSizeInBytes())
+      .cacheMaxSizeInBytes(ableronProperties.getCache().getMaxSize().toBytes())
       .cacheVaryByRequestHeaders(ableronProperties.getCache().getVaryByRequestHeaders())
       .cacheAutoRefreshEnabled(ableronProperties.getCache().isAutoRefreshEnabled())
       .cacheAutoRefreshMaxAttempts(ableronProperties.getCache().getAutoRefreshMaxAttempts())
