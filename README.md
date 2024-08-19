@@ -4,12 +4,12 @@
 
 **Spring Boot Support for Ableron Server Side UI Composition**
 1. Spring Boot 3.x project: Please use ableron-spring-boot-starter 3.x (Java 17+, spring-webmvc only)
-2. Spring Boot 2.x project: Please use ableron-spring-boot-starter 2.x (Java 11+, spring-webmvc only)
+2. Spring Boot 2.x (> 2.1) project: Please use ableron-spring-boot-starter 2.x (Java 11+, spring-webmvc only)
 
 ## Installation
 Gradle:
 ```groovy
-implementation 'io.github.ableron:ableron-spring-boot-starter:3.7.0'
+implementation 'io.github.ableron:ableron-spring-boot-starter:3.8.0'
 ```
 
 Maven:
@@ -17,7 +17,7 @@ Maven:
 <dependency>
   <groupId>io.github.ableron</groupId>
   <artifactId>ableron-spring-boot-starter</artifactId>
-  <version>3.7.0</version>
+  <version>3.8.0</version>
 </dependency>
 ```
 
