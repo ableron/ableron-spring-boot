@@ -19,7 +19,7 @@ public class AbleronEnabledTest {
   public void shouldInitUiCompositionFilterByDefault() {
     try {
       applicationContext.getBean(UiCompositionFilter.class);
-    } catch(NoSuchBeanDefinitionException e) {
+    } catch (NoSuchBeanDefinitionException e) {
       fail("UiCompositionFilter not instantiated");
     }
   }

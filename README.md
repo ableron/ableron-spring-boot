@@ -35,11 +35,11 @@ Default: `true`
 
 Whether UI composition is enabled.
 
-#### `ableron.fragment-request-timeout-millis`
+#### `ableron.fragment-request-timeout`
 
-Default: `3000`
+Default: `3s`
 
-Timeout in milliseconds for requesting fragments.
+Timeout for requesting fragments. Interpreted as milliseconds, if no unit is provided.
 
 #### `ableron.fragment-request-headers-to-pass`
 
@@ -63,6 +63,15 @@ List.of(
 
 Request headers that are passed to fragment requests, if present.
 
+#### `ableron.fragment-additional-request-headers-to-pass`
+
+Default: `empty list`
+
+Extends `ableron.fragment-request-headers-to-pass`. Use this property to pass all headers defined in
+`ableron.fragment-request-headers-to-pass` plus the additional headers defined here. This prevents the
+need to duplicate `ableron.fragment-request-headers-to-pass` if the only  use case is to add additional
+headers instead of modifying the default ones.
+
 #### `ableron.primary-fragment-response-headers-to-pass`
 
 ```java
@@ -75,26 +84,50 @@ List.of(
 
 Response headers of primary fragments to pass to the page response, if present.
 
-#### `ableron.cache-max-size-in-bytes`
+#### `ableron.cache.max-size`
 
-Default: `10485760` (`10 MB`)
+Default: `50MB`
 
-Maximum size in bytes the fragment cache may have.
+Maximum size, the fragment cache may have.
 
-#### `ableron.cache-vary-by-request-headers`
+#### `ableron.cache.vary-by-request-headers`
 
 Default: `empty list`
 
 Fragment request headers which influence the requested fragment aside from its URL. Used to create fragment cache keys.
 Must be a subset of `ableron.fragment-request-headers-to-pass`. Common example are headers used for steering A/B-tests.
 
-#### `ableron.stats-append-to-content`
+#### `ableron.cache.auto-refresh-enabled`
+
+Default: `false`
+
+Whether to enable auto-refreshing of cached fragments, before they expire.
+If set to `true`, cached fragments are getting asynchronously refreshed before they expire. This reduces the cache miss
+rate and thus have a positive impact on latency. On the other hand, additional traffic is introduced, because the cached
+fragments are loaded again even before their actual expiration time.
+Fragments are tried to be refreshed when only 15% of their initial time to live remains. In case of failure, refresh is
+repeated three times with a static delay of one second.
+
+#### `ableron.cache.auto-refresh-max-attempts`
+
+Default: `3`
+
+Maximum number of attempts to refresh a cached fragment.
+
+#### `ableron.cache.auto-refresh-inactive-fragments-max-refreshs`
+
+Default: `2`
+
+Maximum number of consecutive refreshs of inactive cached fragments.
+Fragments are considered inactive, if they have not been read from cache between writing to cache and a refresh attempt.
+
+#### `ableron.stats.append-to-content`
 
 Default: `false`
 
 Whether to append UI composition stats as HTML comment to the content.
 
-#### `ableron.stats-expose-fragment-url`
+#### `ableron.stats.expose-fragment-url`
 
 Default: `false`
 
