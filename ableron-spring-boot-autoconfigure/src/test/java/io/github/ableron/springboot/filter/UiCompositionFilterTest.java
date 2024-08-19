@@ -105,9 +105,11 @@ public class UiCompositionFilterTest {
     // given
     var transclusionResult = new TransclusionResult("");
     transclusionResult.addResolvedInclude(
-      new Include("", Map.of("primary", "")),
-      new Fragment(null, 503, "content", Instant.EPOCH, Map.of(HttpHeaders.CONTENT_LANGUAGE, List.of("en"))),
-      0
+      new Include("", Map.of("primary", "")).resolveWith(
+        new Fragment(null, 503, "content", Instant.EPOCH, Map.of(HttpHeaders.CONTENT_LANGUAGE, List.of("en"))),
+        0,
+        "src"
+      )
     );
     var ableron = Mockito.mock(Ableron.class);
     Mockito.when(ableron.resolveIncludes(any(), any())).thenReturn(transclusionResult);
@@ -131,9 +133,11 @@ public class UiCompositionFilterTest {
     // given
     var transclusionResult = new TransclusionResult("");
     transclusionResult.addResolvedInclude(
-      new Include(""),
-      new Fragment(null, 200, "content", Instant.EPOCH, Map.of()),
-      0
+      new Include("").resolveWith(
+        new Fragment(null, 200, "content", Instant.EPOCH, Map.of()),
+        0,
+        "src"
+      )
     );
     var ableron = Mockito.mock(Ableron.class);
     Mockito.when(ableron.resolveIncludes(any(), any())).thenReturn(transclusionResult);
@@ -158,9 +162,11 @@ public class UiCompositionFilterTest {
     // given
     var transclusionResult = new TransclusionResult("");
     transclusionResult.addResolvedInclude(
-      new Include(""),
-      new Fragment(null, 200, "content", Instant.now().plusSeconds(300), Map.of()),
-      0
+      new Include("").resolveWith(
+        new Fragment(null, 200, "content", Instant.now().plusSeconds(300), Map.of()),
+        0,
+        "src"
+      )
     );
     var ableron = Mockito.mock(Ableron.class);
     Mockito.when(ableron.resolveIncludes(any(), any())).thenReturn(transclusionResult);
@@ -185,9 +191,11 @@ public class UiCompositionFilterTest {
     // given
     var transclusionResult = new TransclusionResult("");
     transclusionResult.addResolvedInclude(
-      new Include(""),
-      new Fragment(null, 200, "content", Instant.now().plusSeconds(900), Map.of()),
-      0
+      new Include("").resolveWith(
+        new Fragment(null, 200, "content", Instant.now().plusSeconds(900), Map.of()),
+        0,
+        "src"
+      )
     );
     var ableron = Mockito.mock(Ableron.class);
     Mockito.when(ableron.resolveIncludes(any(), any())).thenReturn(transclusionResult);
